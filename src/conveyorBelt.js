@@ -45,9 +45,10 @@ class ConveyorBelt {
     }
 
     run(steps = 100) {
+        const slotItems = [COMPONENT_A, COMPONENT_B, EMPTY_SLOT];
+        
         this.setWorkers();
 
-        const slotItems = [COMPONENT_A, COMPONENT_B, EMPTY_SLOT];
         for (let i = 1; i <= steps; i++) {
 
             // Remove the last slot. Log to the result.
@@ -80,7 +81,8 @@ class ConveyorBelt {
                         return;
                     }
 
-                    if (worker.takeItem(this.slots[index])) {
+                    if (worker.canTakeItemFromSlot(this.slots[index])) {
+                        worker.takeItem(this.slots[index]);
                         this.slots[index] = EMPTY_SLOT;
                         busySlot = true;
                     }

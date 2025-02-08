@@ -10,8 +10,12 @@ class Worker {
     assembling = false;
     timeLeftToAssemble = 0;
 
+    canTakeItemFromSlot(slotItem) { 
+        return !this.items.includes(slotItem) && slotItem !== PRODUCT && this.items.length !== this.maxNumberOfItems 
+    }
+
     takeItem(slotItem) {
-        if (!this.items.includes(slotItem) && slotItem !== PRODUCT && this.items.length !== this.maxNumberOfItems) {
+        if (this.canTakeItemFromSlot(slotItem)) {
             this.items.push(slotItem);
             if (this.canAssembleProduct(this.items)){ 
                 this.assembling = true;
