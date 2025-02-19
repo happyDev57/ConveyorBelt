@@ -1,47 +1,47 @@
-import {COMPONENT_A,COMPONENT_B, PRODUCT} from './constants.js'
+import { COMPONENT_A, COMPONENT_B, PRODUCT } from './constants.js';
 
 class Worker {
-    constructor() {
-        this.assemblyTime = 4;
-        this.maxNumberOfItems = 2;
-    }
-    
-    items = [];
-    assembling = false;
-    timeLeftToAssemble = 0;
+  constructor() {
+    this.assemblyTime = 4;
+    this.maxNumberOfItems = 2;
+  }
 
-    canTakeItemFromSlot(slotItem) { 
-        return !this.items.includes(slotItem) && slotItem !== PRODUCT && this.items.length !== this.maxNumberOfItems 
-    }
+  items = [];
+  assembling = false;
+  timeLeftToAssemble = 0;
 
-    takeItem(slotItem) {
-        if (this.canTakeItemFromSlot(slotItem)) {
-            this.items.push(slotItem);
-            if (this.canAssembleProduct(this.items)){ 
-                this.assembling = true;
-                this.timeLeftToAssemble = this.assemblyTime; 
-            };
-            return true;
-        }
-    }
+  canTakeItemFromSlot(slotItem) {
+    return !this.items.includes(slotItem) && slotItem !== PRODUCT && this.items.length !== this.maxNumberOfItems;
+  }
 
-    returnProduct() {
-       return this.items.shift();
+  takeItem(slotItem) {
+    if (this.canTakeItemFromSlot(slotItem)) {
+      this.items.push(slotItem);
+      if (this.canAssembleProduct(this.items)) {
+        this.assembling = true;
+        this.timeLeftToAssemble = this.assemblyTime;
+      }
+      return true;
     }
+  }
 
-    canAssembleProduct(items) {
-        return [COMPONENT_A,COMPONENT_B].every( (component) => items.includes(component))
-    }
+  returnProduct() {
+    return this.items.shift();
+  }
 
-    step() {
-        if (this.timeLeftToAssemble > 1){   
-            return this.timeLeftToAssemble -= 1;
-        }
-        if (this.canAssembleProduct(this.items)) { 
-            this.assembling = false;          
-            this.items = [PRODUCT];
-        }
+  canAssembleProduct(items) {
+    return [COMPONENT_A, COMPONENT_B].every((component) => items.includes(component));
+  }
+
+  step() {
+    if (this.timeLeftToAssemble > 1) {
+      return (this.timeLeftToAssemble -= 1);
     }
+    if (this.canAssembleProduct(this.items)) {
+      this.assembling = false;
+      this.items = [PRODUCT];
+    }
+  }
 }
 
 export default Worker;
