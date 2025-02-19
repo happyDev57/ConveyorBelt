@@ -17,14 +17,14 @@ class ConveyorBelt {
     }
   }
 
-  displayResult = () => {
+  displayResult() {
     console.log('Results:');
     Object.entries(this.result).forEach((item) => {
       console.log('\n', item[0] + ': ' + item[1]);
     });
-  };
+  }
 
-  displayStepProgress = (stepIndex, before) => {
+  displayStepProgress(stepIndex, before) {
     console.log(stepIndex, ...before, '->', ...this.slots, '\n');
     const above = [];
     const below = [];
@@ -45,7 +45,7 @@ class ConveyorBelt {
     const maxLength = this.numberOfSlots * 13;
     console.log(''.padStart(maxLength, '-'));
     console.log(below.join(' | '), '\n\n');
-  };
+  }
 
   run(steps = 100) {
     const slotItems = [COMPONENT_A, COMPONENT_B, EMPTY_SLOT];
